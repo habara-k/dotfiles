@@ -32,6 +32,12 @@ $ brew install zsh
 
 ```
 
+- neovim
+```sh
+$ brew install neovim
+
+```
+
 - tmux
 ```sh
 $ brew install tmux
