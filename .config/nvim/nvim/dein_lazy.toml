@@ -1,0 +1,102 @@
+# ---------------------------------
+# Deoplete
+#     補完
+# ---------------------------------
+  [[plugins]]
+  repo = 'Shougo/deoplete.nvim'
+  hook_add = '''
+    source ~/.config/nvim/plugins/deoplete.vim
+  '''
+  on_i = 1
+
+
+# ---------------------------------
+# NeoSnippet
+#     補完
+# ---------------------------------
+  [[plugins]]
+  repo = 'Shougo/neosnippet.vim'
+  hook_add = '''
+    source ~/.config/nvim/plugins/neosnippet.vim
+  '''
+  on_i  = 1
+  on_ft = ['snippet']
+  depends = ['neosnippet-snippets']
+
+  [[plugins]]
+  repo = 'habara-k/neosnippet'
+
+
+
+# ---------------------------------
+# toml
+# ---------------------------------
+  [[plugins]]
+  repo = 'cespare/vim-toml'
+  on_ft = ['toml']
+
+
+# ---------------------------------
+# markdown
+# ---------------------------------
+  [[plugins]]
+  # repo = 'tpope/vim-markdown'
+  repo = 'plasticboy/vim-markdown'
+  repo = 'godlygeek/tabular'
+  on_ft = ['markdown']
+  hook_add = '''
+    let g:markdown_fenced_languages = ['python', 'bash=sh']
+    let g:markdown_syntax_conceal = 0
+  '''
+
+# ---------------------------------
+# json
+# ---------------------------------
+  [[plugins]]
+  repo = 'elzr/vim-json'
+  on_ft = ['json']
+  hook_add = '''
+    let g:vim_json_syntax_conceal = 0
+  '''
+
+
+# ---------------------------------
+# ruby
+# ---------------------------------
+  [[plugins]]
+  repo = 'tpope/vim-rails'
+  on_ft = ['ruby']
+
+  [[plugins]]
+  repo = 'scrooloose/syntastic'
+  on_ft = ['ruby']
+  hook_add = '''
+    let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+    let g:syntastic_ruby_checkers = ['rubocop']
+  '''
+
+# ---------------------------------
+# jsx
+# ---------------------------------
+  [[plugins]]
+  repo = 'mxw/vim-jsx'
+
+  [[plugins]]
+  repo = 'jxnblk/vim-mdx-js'
+
+
+# ---------------------------------
+# slim
+# ---------------------------------
+  [[plugins]]
+  repo = 'slim-template/vim-slim'
+  on_ft = ['slim']
+
+
+# ---------------------------------
+# blade
+# ---------------------------------
+  [[plugins]]
+  repo = 'jwalton512/vim-blade'
+  on_ft = ['blade']
+

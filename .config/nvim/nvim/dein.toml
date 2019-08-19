@@ -1,0 +1,110 @@
+# dein本体
+
+  [[plugins]]
+  repo = 'Shougo/dein.vim'
+
+
+# ---------------------------------
+# Denite
+#     アウトラインの表示
+# ---------------------------------
+  [[plugins]]
+  repo = 'Shougo/denite.nvim'
+  hook_add = '''
+    source ~/.config/nvim/plugins/denite.vim
+  '''
+
+# ---------------------------------
+# LanguageClient
+#     LSP
+# ---------------------------------
+  [[plugins]]
+  repo = 'autozimu/LanguageClient-neovim'
+  rev = 'next'
+  depends = ['deoplete.nvim']
+  build = 'bash install.sh'
+  hook_add = '''
+    source ~/.config/nvim/plugins/LanguageClient-neovim.vim
+  '''
+
+# ---------------------------------
+# deoplete-tabnine
+#     TabNine
+# ---------------------------------
+  [[plugins]]
+  repo = 'tbodt/deoplete-tabnine'
+  build = './install.sh'
+
+
+# ---------------------------------
+# NeoSnippet
+#     補完
+# ---------------------------------
+  [[plugins]]
+  repo = 'Shougo/neosnippet-snippets'
+
+
+# ---------------------------------
+# vim-fugitive
+# vim-gitgutter
+#     Git 支援プラグイン
+# ---------------------------------
+  [[plugins]]
+  repo = 'tpope/vim-fugitive'
+  hook_add = '''
+    source ~/.config/nvim/plugins/fugitive.vim
+  '''
+  [[plugins]]
+  repo = 'airblade/vim-gitgutter'
+  hook_add = '''
+    source ~/.config/nvim/plugins/vim-gitgutter.vim
+  '''
+
+
+# ---------------------------------
+# vim-template
+#     テンプレート
+# ---------------------------------
+
+  [[plugins]]
+  repo = 'mattn/sonictemplate-vim'
+  hook_add = '''
+    source ~/.config/nvim/plugins/sonictemplate-vim.vim
+  '''
+
+  [[plugins]]
+  repo = 'habara-k/vim-template'
+
+
+# ---------------------------------
+# vim-zenspace
+#     全角スペースのハイライト
+# ---------------------------------
+  [[plugins]]
+  repo = 'thinca/vim-zenspace'
+
+# ---------------------------------
+# indentLine
+#     インデントの可視化
+# ---------------------------------
+  [[plugins]]
+  repo = 'Yggdroot/indentLine'
+  hook_add = '''
+    source ~/.config/nvim/plugins/indentLine.vim
+  '''
+
+# ---------------------------------
+# vimdoc-ja
+# 日本語のドキュメント
+# ---------------------------------
+  [[plugins]]
+  repo = 'vim-jp/vimdoc-ja.git'
+
+
+# ---------------------------------
+# Color Schemes
+#     カラースキーマ
+# ---------------------------------
+  [[plugins]]
+  repo = 'NLKNguyen/papercolor-theme'
+
