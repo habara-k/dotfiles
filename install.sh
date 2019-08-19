@@ -1,9 +1,8 @@
-#!/bin/bash
+#!/bin/zsh
 
-for f in .??*
-do
-    [[ "$f" == ".git" ]] && continue
-    [[ "$f" == ".DS_Store" ]] && continue
+ln -s ~/dotfiles/.zshrc ~/.zshrc
+ln -s ~/dotfiles/.zshenv ~/.zshenv
+ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 
-    echo "$f"
-done
+mkdir ~/.config
+ln -s ~/dotfiles/.config/nvim ~/.config/nvim
