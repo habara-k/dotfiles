@@ -1,34 +1,44 @@
 " Denite用プレフィックス
 nmap [denite] <Nop>
-map <SPACE>d [denite]
-
-" 表示を# から> に変更
-call denite#custom#option('default', 'prompt', '>')
+map <SPACE>i [denite]
 
 " プロジェクト内のファイル検索
-nmap <silent> [denite]f :<C-u>Denite file_rec<CR>
+nmap <silent> [denite]f :<C-u>Denite file/rec<CR>
 " バッファに展開中のファイル検索
 nmap <silent> [denite]b :<C-u>Denite buffer<CR>
 " プロジェクト内をgrep 検索
 nmap <silent> [denite]g :<C-u>Denite grep<CR>
-nmap <silent> [denite]w :<C-u>DeniteCursorWord grep<CR>
 
-" 上下移動
-call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>')
-call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>')
-" 入力履歴移動
-call denite#custom#map('insert', '<C-n>', '<denite:assign_next_text>')
-call denite#custom#map('insert', '<C-p>', '<denite:assign_previous_text>')
-" オープン
-call denite#custom#map('insert', '<C-o>', '<denite:do_action:open>')
-call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>')
-call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>')
 
-" file_rec検索時にfuzzymatchを有効にし、検索対象から指定のファイルを除外
+" file/rec検索時にfuzzymatchを有効にする
 call denite#custom#source(
-    \ 'file_rec', 'matchers', ['matcher_fuzzy', 'matcher_project_files', 'matcher_ignore_globs'])
+    \ 'file/rec', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
 
 " 検索対象外のファイル指定
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-    \ [ '.git/', '.ropeproject/', '__pycache__/', 'vendor/',
-    \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+  \ [ '.git/', '.ropeproject/', '__pycache__/',
+  \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
+  \   'node_modules/'])
+
+" Define mappings
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> o
+  \ denite#do_map('do_action', 'open')
+  nnoremap <silent><buffer><expr> t
+  \ denite#do_map('do_action', 'tabopen')
+  nnoremap <silent><buffer><expr> s
+  \ denite#do_map('do_action', 'split')
+  nnoremap <silent><buffer><expr> v
+  \ denite#do_map('do_action', 'vsplit')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction

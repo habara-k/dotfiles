@@ -100,3 +100,10 @@
   repo = 'jwalton512/vim-blade'
   on_ft = ['blade']
 
+
+# ---------------------------------
+# vue
+# ---------------------------------
+  [[plugins]]
+  repo = 'posva/vim-vue'
+  on_ft = ['vue']

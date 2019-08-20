@@ -124,6 +124,8 @@
   set expandtab
   au BufNewFile,BufRead *.go set noexpandtab
 
+  set autoindent
+
   "ファイルタイプの検索を有効にする
   filetype plugin indent on
 

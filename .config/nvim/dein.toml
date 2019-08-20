@@ -8,11 +8,21 @@
 # Denite
 #     アウトラインの表示
 # ---------------------------------
-  [[plugins]]
-  repo = 'Shougo/denite.nvim'
-  hook_add = '''
-    source ~/.config/nvim/plugins/denite.vim
-  '''
+#  [[plugins]]
+#  repo = 'Shougo/denite.nvim'
+#  hook_add = '''
+#    source ~/.config/nvim/plugins/denite.vim
+#  '''
+
+
+[[plugins]]
+repo ='Shougo/defx.nvim'
+on_cmd = 'Defx'
+depends = ['defx-icons', 'defx-git']
+hook_add = '''
+  source ~/.config/nvim/plugins/defx.vim
+'''
+
 
 # ---------------------------------
 # LanguageClient
