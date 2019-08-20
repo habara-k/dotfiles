@@ -48,7 +48,7 @@ zstyle ':completion:*' recent-dirs-insert both
 ##########################
 # PLUGIN
 ##########################
-source ~/.zplug/init.zsh
+source /usr/local/opt/zplug/init.zsh
 
 zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 
