@@ -1,4 +1,3 @@
-
 " Dein Setting --------------------------------------------------{{{
 
   " プラグインがインストールされるディレクトリ
@@ -40,8 +39,6 @@
   endif
 
 "}}}"
-
-
 
 " Basic Setting -------------------------------------------------{{{
 
@@ -99,20 +96,13 @@
   set listchars=tab:»-,trail:･,nbsp:⍽,extends:»,precedes:«
 
   " タブ間の移動
-  nnoremap <C-n> gt
-  nnoremap <C-p> gT
-
-  " concealを無効化
-  autocmd Filetype tex setl conceallevel=0
+  nnoremap <C-n> :<C-u>bnext<CR>
+  nnoremap <C-p> :<C-u>bprev<CR>
 
   " 末尾の空白を削除
   autocmd BufWritePre * :%s/\s\+$//ge
 
-  " fzf を使う
-  set rtp+=/usr/local/opt/fzf
-
 "}}}"
-
 
 
 " Tab Setting ---------------------------------------------------{{{
@@ -130,9 +120,8 @@
   filetype plugin indent on
 
   "sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
-  autocmd FileType ruby        setlocal sw=2 sts=2 ts=2 et
   autocmd FileType toml        setlocal sw=2 sts=2 ts=2 et
   autocmd FileType vim         setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType zsh         setlocal sw=2 sts=2 ts=2 et
 
 "}}}"
-

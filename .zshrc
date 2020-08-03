@@ -1,78 +1,106 @@
-# コマンド補完
-autoload -U compinit
-compinit
+# Set up the prompt
 
-# コマンド訂正
-setopt correct
+autoload -Uz promptinit
+promptinit
+prompt adam1
 
-# vimキーバインド
+setopt histignorealldups sharehistory
+
+# Use emacs keybindings even if our EDITOR is set to vi
 bindkey -v
 
-# 他のターミナルとヒストリーを共有
-setopt share_history
-# ヒストリーに重複を表示しない
-setopt histignorealldups
-# ヒストリの設定
+# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
+HISTSIZE=1000
+SAVEHIST=1000
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
 
-# cdコマンドを省略して、ディレクトリ名のみの入力で移動
-setopt auto_cd
+# Use modern completion system
+autoload -Uz compinit
+compinit
 
-# 補完後、メニュー選択モードになり矢印キーで移動が出来る
-zstyle ':completion:*:default' menu select=2
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
 
-# 補完で大文字にもマッチ
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# コマンドを途中まで入力後、historyから絞り込み
-# 例 ls まで打ってCtrl+pでlsコマンドをさかのぼる、Ctrl+nで逆順
 autoload -Uz history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
 bindkey "^n" history-beginning-search-forward-end
 
-# Ctrl+Dでログアウトしてしまうことを防ぐ
-setopt IGNOREEOF
+setopt auto_cd
 
-# cdr, add-zsh-hook を有効にする
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-zstyle ':chpwd:*' recent-dirs-max 500 # cdrの履歴を保存する個数
-zstyle ':chpwd:*' recent-dirs-default yes
-zstyle ':completion:*' recent-dirs-insert both
+setopt correct
+
+# cdr settings {{{
+
+  autoload -U chpwd_recent_dirs cdr
+  add-zsh-hook chpwd chpwd_recent_dirs
+  zstyle ":chpwd:*" recent-dirs-max 50
+  zstyle ":chpwd:*" recent-dirs-default on
+  zstyle ":completion:*" recent-dirs-insert always
+  zstyle ":completion:*:*:cdr:*:*" menu select=2
+
+# }}}
+
+# peco settings {{{
+
+  # 過去に実行したコマンドを選択。ctrl-rにバインド
+  function peco-select-history() {
+    BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+  }
+  zle -N peco-select-history
+  bindkey '^r' peco-select-history
+
+  # search a destination from cdr list
+  function peco-get-destination-from-cdr() {
+    cdr -l | \
+    sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
+    peco --query "$LBUFFER"
+  }
 
 
-##########################
-# PLUGIN
-##########################
-source /usr/local/opt/zplug/init.zsh
-
-zplug 'zsh-users/zsh-syntax-highlighting', defer:2
-
-zplug "zsh-users/zaw", from:github
-# Ctrl-R でコマンドの履歴を開く
-# Ctrl-B でブランチを開く
-if zplug check zsh-users/zaw; then
-    bindkey '^R' zaw-history
-    bindkey '^@' zaw-cdr
-    bindkey '^B' zaw-git-branches
-    bindkey '^F' zaw-fasd-files
-    bindkey '^D' zaw-fasd-directories
-fi
-
-# fasd の初期化
-eval "$(fasd --init posix-alias zsh-hook)"
-
-if ! zplug check --verbose; then
-    printf 'Install? [y/N]: '
-    if read -q; then
-        echo; zplug install
+  ### 過去に移動したことのあるディレクトリを選択。ctrl-uにバインド
+  function peco-cdr() {
+    local destination="$(peco-get-destination-from-cdr)"
+    if [ -n "$destination" ]; then
+      BUFFER="cd $destination"
+      zle accept-line
+    else
+      zle reset-prompt
     fi
-fi
+  }
+  zle -N peco-cdr
+  bindkey '^u' peco-cdr
 
-zplug load --verbose
-##########################
+# }}}
 
+# plugins {{{
+
+  source ~/.zplug/init.zsh
+  zplug 'zsh-users/zsh-syntax-highlighting', defer:2
+  if ! zplug check --verbose; then
+      printf 'Install? [y/N]: '
+      if read -q; then
+          echo; zplug install
+      fi
+  fi
+  zplug load --verbose
+
+# }}}

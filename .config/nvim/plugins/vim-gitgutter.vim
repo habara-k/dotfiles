@@ -1,10 +1,10 @@
 set signcolumn=yes
 set updatetime=1000
 
-" GitGutter用プレフィックス
-nmap [GitGutter] <Nop>
-map <SPACE>g [GitGutter]
+" Git用プレフィックス
+nmap [Git] <Nop>
+map <SPACE>g [Git]
 
-nmap <silent> [GitGutter]a :GitGutterAll<CR>
-nmap <silent> [GitGutter]n :GitGutterNextHunk<CR>
-nmap <silent> [GitGutter]p :GitGutterPrevHunk<CR>
+nmap <silent> [Git]a :GitGutterAll<CR>
+nmap <silent> [Git]n :GitGutterNextHunk<CR>
+nmap <silent> [Git]p :GitGutterPrevHunk<CR>

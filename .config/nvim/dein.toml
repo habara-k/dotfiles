@@ -5,54 +5,14 @@
 
 
 # ---------------------------------
-# Denite
-#     アウトラインの表示
-# ---------------------------------
-#  [[plugins]]
-#  repo = 'Shougo/denite.nvim'
-#  hook_add = '''
-#    source ~/.config/nvim/plugins/denite.vim
-#  '''
-
-
-[[plugins]]
-repo ='Shougo/defx.nvim'
-on_cmd = 'Defx'
-depends = ['defx-icons', 'defx-git']
-hook_add = '''
-  source ~/.config/nvim/plugins/defx.vim
-'''
-
-
-# ---------------------------------
-# LanguageClient
-#     LSP
+# vaffle
+#     ファイルツリー
 # ---------------------------------
   [[plugins]]
-  repo = 'autozimu/LanguageClient-neovim'
-  rev = 'next'
-  depends = ['deoplete.nvim']
-  build = 'bash install.sh'
+  repo = 'cocopon/vaffle.vim'
   hook_add = '''
-    source ~/.config/nvim/plugins/LanguageClient-neovim.vim
+    source ~/.config/nvim/plugins/vaffle.vim
   '''
-
-# ---------------------------------
-# deoplete-tabnine
-#     TabNine
-# ---------------------------------
-  [[plugins]]
-  repo = 'tbodt/deoplete-tabnine'
-  build = './install.sh'
-
-
-# ---------------------------------
-# NeoSnippet
-#     補完
-# ---------------------------------
-  [[plugins]]
-  repo = 'Shougo/neosnippet-snippets'
-
 
 # ---------------------------------
 # vim-fugitive
@@ -70,38 +30,12 @@ hook_add = '''
     source ~/.config/nvim/plugins/vim-gitgutter.vim
   '''
 
-
-# ---------------------------------
-# vim-template
-#     テンプレート
-# ---------------------------------
-
-  [[plugins]]
-  repo = 'mattn/sonictemplate-vim'
-  hook_add = '''
-    source ~/.config/nvim/plugins/sonictemplate-vim.vim
-  '''
-
-  [[plugins]]
-  repo = 'habara-k/vim-template'
-
-
 # ---------------------------------
 # vim-zenspace
 #     全角スペースのハイライト
 # ---------------------------------
   [[plugins]]
   repo = 'thinca/vim-zenspace'
-
-# ---------------------------------
-# indentLine
-#     インデントの可視化
-# ---------------------------------
-  [[plugins]]
-  repo = 'Yggdroot/indentLine'
-  hook_add = '''
-    source ~/.config/nvim/plugins/indentLine.vim
-  '''
 
 # ---------------------------------
 # vimdoc-ja
@@ -117,4 +51,3 @@ hook_add = '''
 # ---------------------------------
   [[plugins]]
   repo = 'NLKNguyen/papercolor-theme'
-
