@@ -104,3 +104,6 @@ setopt correct
   zplug load --verbose
 
 # }}}
+
+# For direnv
+eval "$(direnv hook zsh)"
