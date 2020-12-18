@@ -3,17 +3,6 @@
   [[plugins]]
   repo = 'Shougo/dein.vim'
 
-
-# ---------------------------------
-# vaffle
-#     ファイルツリー
-# ---------------------------------
-  [[plugins]]
-  repo = 'cocopon/vaffle.vim'
-  hook_add = '''
-    source ~/.config/nvim/plugins/vaffle.vim
-  '''
-
 # ---------------------------------
 # vim-fugitive
 # vim-gitgutter
@@ -47,7 +36,40 @@
 
 # ---------------------------------
 # Color Schemes
-#     カラースキーマ
 # ---------------------------------
   [[plugins]]
   repo = 'NLKNguyen/papercolor-theme'
+
+
+# ---------------------------------
+# coc.nvim
+#     LSP
+# ---------------------------------
+  [[plugins]]
+  repo = "neoclide/coc.nvim"
+  merge = 0
+  rev = "release"
+  hook_add = '''
+  source ~/.config/nvim/plugins/coc.vim
+  '''
+
+# ---------------------------------
+# denite
+#     インターフェースの統合
+# ---------------------------------
+  [[plugins]]
+  repo = "Shougo/denite.nvim"
+  hook_add = '''
+  source ~/.config/nvim/plugins/denite.vim
+  '''
+
+# ---------------------------------
+# defx
+#     ファイラー
+# ---------------------------------
+  [[plugins]]
+  repo = "Shougo/defx.nvim"
+  depends = ["defx-git"]
+  hook_add = '''
+  source ~/.config/nvim/plugins/defx.vim
+  '''
