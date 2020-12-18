@@ -1,12 +1,11 @@
 # Set up the prompt
 
-autoload -Uz promptinit
-promptinit
+autoload -Uz promptinit && promptinit
 prompt adam1
 
 setopt histignorealldups sharehistory
 
-# Use emacs keybindings even if our EDITOR is set to vi
+# Use vi keybindings
 bindkey -v
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
@@ -15,8 +14,7 @@ SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
 # Use modern completion system
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit -u
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -93,7 +91,8 @@ setopt correct
 
 # plugins {{{
 
-  source ~/.zplug/init.zsh
+  export ZPLUG_HOME=/usr/local/opt/zplug
+  source $ZPLUG_HOME/init.zsh
   zplug 'zsh-users/zsh-syntax-highlighting', defer:2
   if ! zplug check --verbose; then
       printf 'Install? [y/N]: '
