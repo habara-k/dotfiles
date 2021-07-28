@@ -4,15 +4,9 @@
   repo = 'Shougo/dein.vim'
 
 # ---------------------------------
-# vim-fugitive
 # vim-gitgutter
 #     Git 支援プラグイン
 # ---------------------------------
-  [[plugins]]
-  repo = 'tpope/vim-fugitive'
-  hook_add = '''
-    source ~/.config/nvim/plugins/fugitive.vim
-  '''
   [[plugins]]
   repo = 'airblade/vim-gitgutter'
   hook_add = '''
@@ -73,3 +67,4 @@
   hook_add = '''
   source ~/.config/nvim/plugins/defx.vim
   '''
+

@@ -108,21 +108,18 @@
 
 " Tab Setting ---------------------------------------------------{{{
 
-  set tabstop=4
-  set shiftwidth=4
-
-  " softtab
+  set tabstop=2
+  set shiftwidth=2
+  set softtabstop=2
   set expandtab
-  au BufNewFile,BufRead *.go set noexpandtab
-
   set autoindent
+  set smartindent
 
-  "ファイルタイプの検索を有効にする
-  filetype plugin indent on
-
-  "sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
-  autocmd FileType toml        setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType vim         setlocal sw=2 sts=2 ts=2 et
-  autocmd FileType zsh         setlocal sw=2 sts=2 ts=2 et
+  augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  augroup END
 
 "}}}"

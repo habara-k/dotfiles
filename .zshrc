@@ -106,3 +106,9 @@ setopt correct
 
 # For direnv
 eval "$(direnv hook zsh)"
+
+# For pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
