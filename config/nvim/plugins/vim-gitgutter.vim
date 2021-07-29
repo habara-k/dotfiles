@@ -5,6 +5,5 @@ set updatetime=1000
 nmap [Git] <Nop>
 map <SPACE>g [Git]
 
-nmap <silent> [Git]a :GitGutterAll<CR>
 nmap <silent> [Git]n :GitGutterNextHunk<CR>
 nmap <silent> [Git]p :GitGutterPrevHunk<CR>
