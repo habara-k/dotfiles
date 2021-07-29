@@ -6,6 +6,9 @@ ln -s ~/dotfiles/zshrc ~/.zprezto/runcoms/zshrc
 rm ~/.zprezto/runcoms/zpreztorc
 ln -s ~/dotfiles/zpreztorc ~/.zprezto/runcoms/zpreztorc
 
+rm ~/.zprezto/runcoms/zshenv
+ln -s ~/dotfiles/zshenv ~/.zprezto/runcoms/zshenv
+
 ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
 
 mkdir -p ~/.config
