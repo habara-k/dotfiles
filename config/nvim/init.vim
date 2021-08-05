@@ -43,11 +43,6 @@
 
 " Basic Setting -------------------------------------------------{{{
 
-  " カラースキーマ
-  syntax enable
-  set background=dark
-  colorscheme PaperColor
-
   set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %f%=%{fugitive#statusline()}\ \%l/%L,%c%V\ \%P
   set statusline^=%{coc#status()}
 

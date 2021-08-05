@@ -4,9 +4,13 @@
   repo = 'Shougo/dein.vim'
 
 # ---------------------------------
+# fugitive
 # vim-gitgutter
 #     Git 支援プラグイン
 # ---------------------------------
+  [[plugins]]
+  repo = 'tpope/vim-fugitive'
+
   [[plugins]]
   repo = 'airblade/vim-gitgutter'
   hook_add = '''
@@ -32,7 +36,14 @@
 # Color Schemes
 # ---------------------------------
   [[plugins]]
-  repo = 'NLKNguyen/papercolor-theme'
+  repo = 'tomasr/molokai'
+  hook_add = '''
+    syntax enable
+    colorscheme molokai
+  '''
+
+  [[plugins]]
+  repo = 'ap/vim-buftabline'
 
 
 # ---------------------------------
@@ -48,13 +59,12 @@
   '''
 
 # ---------------------------------
-# denite
-#     インターフェースの統合
+# fzf
 # ---------------------------------
   [[plugins]]
-  repo = "Shougo/denite.nvim"
+  repo = "junegunn/fzf.vim"
   hook_add = '''
-  source ~/.config/nvim/plugins/denite.vim
+  source ~/.config/nvim/plugins/fzf.vim
   '''
 
 # ---------------------------------
