@@ -1,9 +1,10 @@
 #!/bin/zsh
 
-ln -s ~/dotfiles/zshrc ~/.zshrc
-ln -s ~/dotfiles/zshenv ~/.zshenv
-ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+DOT_DIRECTORY=$HOME/ghq/github.com/habara-k/dotfiles
+ln -snfv $DOT_DIRECTORY/zshrc $HOME/.zshrc
+ln -snfv $DOT_DIRECTORY/zshenv $HOME/.zshenv
+ln -snfv $DOT_DIRECTORY/tmux.conf $HOME/.tmux.conf
 
-mkdir -p ~/.config
-ln -s ~/dotfiles/config/nvim/init.vim ~/.config/nvim/init.vim
-ln -s ~/dotfiles/config/nvim/dein.toml ~/.config/nvim/dein.toml
+mkdir -p $HOME/.config/nvim
+ln -snfv $DOT_DIRECTORY/config/nvim/init.vim $HOME/.config/nvim/init.vim
+ln -snfv $DOT_DIRECTORY/config/nvim/dein.toml $HOME/.config/nvim/dein.toml
