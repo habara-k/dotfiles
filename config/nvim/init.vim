@@ -1,74 +1,49 @@
-" Dein Setting --------------------------------------------------{{{
+if !&compatible
+  set nocompatible
+endif
 
-  " プラグインがインストールされるディレクトリ
-  let s:dein_dir = expand('~/.cache/dein')
+" reset augroup
+augroup MyAutoCmd
+  autocmd!
+augroup END
 
-  " dein.vim がなければ github から落としてくる
-  if &runtimepath !~# '/dein.vim'
-    " dein.vim 本体
-    let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-    if !isdirectory(s:dein_repo_dir)
-      execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-    endif
-    execute 'set runtimepath^=' . s:dein_repo_dir
-  endif
-
-  " 設定開始
-  if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir)
-
-    " プラグインリストを収めた TOML ファイル
-    " 予め TOML ファイルを用意しておく
-    let g:rc_dir    = expand("~/.config/nvim/")
-    let s:toml      = g:rc_dir . '/dein.toml'
-    let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
-
-    " TOML を読み込み、キャッシュしておく
-    call dein#load_toml(s:toml,      {'lazy': 0})
-    call dein#load_toml(s:lazy_toml, {'lazy': 1})
-
-    " 設定終了
-    call dein#end()
-    call dein#save_state()
-  endif
-
-  " もし、未インストールものものがあったらインストール
-  if dein#check_install()
-    call dein#install()
-  endif
-
-"}}}"
+" dein settings {{{
+" dein自体の自動インストール
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repo_dir)
+  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+endif
+let &runtimepath = s:dein_repo_dir .",". &runtimepath
+" プラグイン読み込み＆キャッシュ作成
+let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/dein.toml'
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+  call dein#load_toml(s:toml_file)
+  call dein#end()
+  call dein#save_state()
+endif
+" 不足プラグインの自動インストール
+if has('vim_starting') && dein#check_install()
+  call dein#install()
+endif
+" }}}
 
 
-" Basic Setting -------------------------------------------------{{{
-
-  set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %f%=%{fugitive#statusline()}\ \%l/%L,%c%V\ \%P
-  set statusline^=%{coc#status()}
-
-  " 行番号を表示
+" Basic Setting {{{
   set number
-
-  " 現在行を強調
   set cursorline
-
-  " バックアップファイルを作らない
   set nobackup
-  " スワップファイルを作らない
   set noswapfile
-  " 編集中のファイルが変更されたら自動で読み直す
   set autoread
-
-  " ヤンクでクリップボードにコピー
   set clipboard=unnamedplus
 
-  " ヘルプ用
   nnoremap <C-h>      :<C-u>help<Space>
   nnoremap <C-h><C-h> :<C-u>help<Space><C-r><C-w><CR>
 
   " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
   set whichwrap=b,s,h,l,<,>,[,]
-  " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
   nnoremap j gj
   nnoremap k gk
   " 行末の1文字先までカーソルを移動できるように
@@ -102,28 +77,30 @@
 "}}}"
 
 
-" Tab Setting ---------------------------------------------------{{{
+" Tab Setting {{{
 
-  set tabstop=2
-  set shiftwidth=2
-  set softtabstop=2
-  set expandtab
-  set autoindent
-  set smartindent
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set autoindent
+set smartindent
 
-  augroup fileTypeIndent
-    autocmd!
-    autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
-    autocmd BufNewFile,BufRead *.cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4
-    autocmd BufNewFile,BufRead *.cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  augroup END
+augroup fileTypeIndent
+  autocmd!
+  autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  autocmd BufNewFile,BufRead *.cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  autocmd BufNewFile,BufRead *.cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4
+augroup END
 
 "}}}"
 
 
-" tmux Setting ---------------------------------------------------{{{
+" Theme {{{
 
-  hi Normal ctermbg=None
+set background=dark
+colorscheme PaperColor
+autocmd ColorScheme * highlight Normal ctermbg=None
 
 "}}}"
 

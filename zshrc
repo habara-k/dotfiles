@@ -54,7 +54,7 @@ add-zsh-hook chpwd chpwd_recent_dirs
 bindkey '^r' anyframe-widget-execute-history
 bindkey '^b' anyframe-widget-checkout-git-branch
 bindkey '^g' anyframe-widget-cd-ghq-repository
-bindkey '^i' anyframe-widget-insert-filename
+bindkey '^k' anyframe-widget-insert-filename
 bindkey '^t' anyframe-widget-tmux-attach
 
 
