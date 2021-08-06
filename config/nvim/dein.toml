@@ -18,8 +18,8 @@ hook_add = '''
 set signcolumn=yes
 set updatetime=1000
 
-nmap <silent> <C-[> :GitGutterNextHunk<CR>
-nmap <silent> <C-]> :GitGutterPrevHunk<CR>
+nmap <silent> ( :GitGutterNextHunk<CR>
+nmap <silent> ) :GitGutterPrevHunk<CR>
 '''
 # ------------------
 
