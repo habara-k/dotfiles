@@ -38,7 +38,19 @@ call plug#begin('~/.vim/plugged')
   " lsp
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
+
+  " session
+  Plug 'tpope/vim-obsession'
+  Plug 'dhruvasagar/vim-prosession'
+
+  " indent line
+  Plug 'Yggdroot/indentLine'
 call plug#end()
+
+
+" indent line ----- {{{
+let g:indentLine_fileTypeExclude = ['defx']
+"}}}
 
 
 " lspconfig ------- {{{
@@ -49,13 +61,16 @@ local on_attach = function (client, bufnr)
 
   buf_set_keymap('n', '<SPACE>d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   require'completion'.on_attach(client, bufnr)
 end
 
 require'lspconfig'.clangd.setup{on_attach=on_attach}
+require'lspconfig'.pyright.setup{on_attach=on_attach}
 EOF
 "}}}
+
 
 " completion ------ {{{
 " Use <Tab> and <S-Tab> to navigate through popup menu
@@ -69,6 +84,7 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 "}}}
 
+
 " lualine --------- {{{
 lua <<EOF
 require'lualine'.setup{
@@ -76,6 +92,7 @@ require'lualine'.setup{
 }
 EOF
 "}}}
+
 
 " telescope ------- {{{
 nnoremap <silent> ,f <cmd>Telescope find_files<cr>
@@ -88,6 +105,7 @@ require'nvim-web-devicons'.get_icon(filename, extension, options)
 EOF
 "}}}
 
+
 " treesitter ------ {{{
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
@@ -99,10 +117,12 @@ require'nvim-treesitter.configs'.setup {
 EOF
 "}}}
 
+
 " gitgutter ------- {{{
 nnoremap <silent> g] :GitGutterNextHunk<CR>
 nnoremap <silent> g[ :GitGutterPrevHunk<CR>
 "}}}
+
 
 " defx ------------ {{{
 nnoremap <silent><C-f> :<C-u>Defx<CR>
@@ -137,12 +157,14 @@ function! s:defx_my_settings() abort
 endfunction
 "}}}
 
+
 " Basic setting --- {{{
 set number
 set cursorline
 set nobackup
 set noswapfile
 set autoread
+set hidden
 set clipboard=unnamedplus
 set foldmethod=marker
 set virtualedit=onemore
@@ -154,9 +176,8 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <C-n> :<C-u>bnext<CR>
 nnoremap <C-p> :<C-u>bprev<CR>
-
-autocmd BufWritePre * :%s/\s\+$//ge
 "}}}
+
 
 " Tab setting ----- {{{
 set tabstop=2
@@ -170,12 +191,13 @@ augroup fileTypeIndent
   autocmd!
   autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
   autocmd BufNewFile,BufRead *.cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  autocmd BufNewFile,BufRead *.cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  autocmd BufNewFile,BufRead *.hpp setlocal tabstop=4 softtabstop=4 shiftwidth=4
 augroup END
 "}}}
 
+
 " Color scheme ---- {{{
 colorscheme PaperColor
-autocmd ColorScheme * highlight Normal ctermbg=None
+hi Normal ctermbg=None
 "}}}
 
