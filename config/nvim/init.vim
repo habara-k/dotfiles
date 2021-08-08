@@ -10,11 +10,21 @@ endif
 call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-plug',{'dir': '~/.vim/plugged/vim-plug/autoload'}
 
+  " icons
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'ryanoasis/vim-devicons'
+
   " color scheme
   Plug 'NLKNguyen/papercolor-theme'
 
+  " indent line
+  Plug 'Yggdroot/indentLine'
+
   " tabline
   Plug 'ap/vim-buftabline'
+
+  " status line
+  Plug 'hoob3rt/lualine.nvim'
 
   " git
   Plug 'airblade/vim-gitgutter'
@@ -24,16 +34,12 @@ call plug#begin('~/.vim/plugged')
 
   " file exploler
   Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+  Plug 'kristijanhusak/defx-icons'
 
   " finder
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'
   Plug 'nvim-telescope/telescope.nvim'
-
-  " status line
-  Plug 'hoob3rt/lualine.nvim'
-  Plug 'ryanoasis/vim-devicons'
 
   " lsp
   Plug 'neovim/nvim-lspconfig'
@@ -43,9 +49,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-obsession'
   Plug 'dhruvasagar/vim-prosession'
 
-  " indent line
-  Plug 'Yggdroot/indentLine'
 call plug#end()
+
+
+" icons ----------- {{{
+lua <<EOF
+require'nvim-web-devicons'.get_icon(filename, extension, options)
+EOF
+"}}}
 
 
 " indent line ----- {{{
@@ -100,7 +111,15 @@ nnoremap <silent> ,g <cmd>Telescope git_files<cr>
 nnoremap <silent> ,r <cmd>Telescope live_grep<cr>
 nnoremap <silent> ,b <cmd>Telescope buffers<cr>
 lua <<EOF
-require'telescope'.setup{}
+require'telescope'.setup{
+  defaults = {
+    mappings = {
+      n = {
+        ["q"] = require'telescope.actions'.close
+      },
+    },
+  }
+}
 require'nvim-web-devicons'.get_icon(filename, extension, options)
 EOF
 "}}}
