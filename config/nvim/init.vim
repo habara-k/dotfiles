@@ -1,4 +1,3 @@
-
 if has('vim_starting')
   set rtp+=~/.vim/plugged/vim-plug
   if !isdirectory(expand('~/.vim/plugged/vim-plug'))
@@ -10,21 +9,99 @@ endif
 
 call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-plug',{'dir': '~/.vim/plugged/vim-plug/autoload'}
+
+  " color scheme
   Plug 'NLKNguyen/papercolor-theme'
+
+  " tabline
   Plug 'ap/vim-buftabline'
-  Plug 'tpope/vim-fugitive'
-  Plug 'itchyny/lightline.vim'
+
+  " git
+  Plug 'airblade/vim-gitgutter'
+
+  " syntax
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+  " file exploler
   Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
-  Plug 'junegunn/fzf.vim'
+
+  " finder
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'nvim-telescope/telescope.nvim'
+
+  " status line
+  Plug 'hoob3rt/lualine.nvim'
+  Plug 'ryanoasis/vim-devicons'
+
+  " lsp
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/completion-nvim'
 call plug#end()
 
-" fzf ------------- {{{
-nnoremap <silent> ,a :<C-u>Ag<CR>
-nnoremap <silent> ,f :<C-u>Files<CR>
-nnoremap <silent> ,g :<C-u>GFiles<CR>
-nnoremap <silent> ,b :<C-u>Buffers<CR>
-nnoremap <silent> ,m :<C-u>History<CR>
-set rtp+=/usr/local/opt/fzf
+
+" lspconfig ------- {{{
+lua <<EOF
+local on_attach = function (client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local opts = { noremap=true, silent=true }
+
+  buf_set_keymap('n', '<SPACE>d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
+  require'completion'.on_attach(client, bufnr)
+end
+
+require'lspconfig'.clangd.setup{on_attach=on_attach}
+EOF
+"}}}
+
+" completion ------ {{{
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+"}}}
+
+" lualine --------- {{{
+lua <<EOF
+require'lualine'.setup{
+  options = {theme = 'PaperColor'},
+}
+EOF
+"}}}
+
+" telescope ------- {{{
+nnoremap <silent> ,f <cmd>Telescope find_files<cr>
+nnoremap <silent> ,g <cmd>Telescope git_files<cr>
+nnoremap <silent> ,r <cmd>Telescope live_grep<cr>
+nnoremap <silent> ,b <cmd>Telescope buffers<cr>
+lua <<EOF
+require'telescope'.setup{}
+require'nvim-web-devicons'.get_icon(filename, extension, options)
+EOF
+"}}}
+
+" treesitter ------ {{{
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+  ensure_installed = 'maintained'
+}
+EOF
+"}}}
+
+" gitgutter ------- {{{
+nnoremap <silent> g] :GitGutterNextHunk<CR>
+nnoremap <silent> g[ :GitGutterPrevHunk<CR>
 "}}}
 
 " defx ------------ {{{
@@ -59,20 +136,6 @@ function! s:defx_my_settings() abort
   \ defx#do_action('quit')
 endfunction
 "}}}
-
-" lightline ------- {{{
-let g:lightline = {
-    \ 'colorscheme': 'PaperColor',
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-    \ },
-    \ 'component_function': {
-    \   'gitbranch': 'FugitiveHead'
-    \ },
-    \ }
-"}}}
-
 
 " Basic setting --- {{{
 set number
