@@ -12,13 +12,15 @@ call plug#begin('~/.vim/plugged')
 
   " icons
   Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'ryanoasis/vim-devicons'
 
   " color scheme
   Plug 'NLKNguyen/papercolor-theme'
+  Plug 'joshdick/onedark.vim'
+  Plug 'tomasr/molokai'
+  Plug 'morhetz/gruvbox'
 
   " indent line
-  Plug 'Yggdroot/indentLine'
+  Plug 'lukas-reineke/indent-blankline.nvim'
 
   " tabline
   Plug 'ap/vim-buftabline'
@@ -33,8 +35,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
   " file exploler
-  Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
-  Plug 'kristijanhusak/defx-icons'
+  Plug 'kyazdani42/nvim-tree.lua'
 
   " finder
   Plug 'nvim-lua/popup.nvim'
@@ -44,6 +45,7 @@ call plug#begin('~/.vim/plugged')
   " lsp
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
+  Plug 'nvim-lua/lsp_extensions.nvim'
 
   " session
   Plug 'tpope/vim-obsession'
@@ -52,15 +54,8 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 
-" icons ----------- {{{
-lua <<EOF
-require'nvim-web-devicons'.get_icon(filename, extension, options)
-EOF
-"}}}
-
-
-" indent line ----- {{{
-let g:indentLine_fileTypeExclude = ['defx']
+" file exploler --- {{{
+nnoremap <silent> <C-f> :NvimTreeToggle<CR>
 "}}}
 
 
@@ -79,7 +74,10 @@ end
 
 require'lspconfig'.clangd.setup{on_attach=on_attach}
 require'lspconfig'.pyright.setup{on_attach=on_attach}
+require'lspconfig'.rust_analyzer.setup{on_attach=on_attach}
 EOF
+
+autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter,CursorHold,CursorMoved *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"}}
 "}}}
 
 
@@ -99,7 +97,27 @@ set shortmess+=c
 " lualine --------- {{{
 lua <<EOF
 require'lualine'.setup{
-  options = {theme = 'PaperColor'},
+  options = {
+    theme = 'onedark',
+    component_separators = {'', ''},
+    section_separators = {'', ''},
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch'},
+    lualine_c = {'filename'},
+    lualine_x = {
+      {
+        'diagnostics',
+        sources = {"nvim_lsp"},
+        symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
+      },
+      'encoding',
+      'filetype'
+    },
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
 }
 EOF
 "}}}
@@ -120,7 +138,6 @@ require'telescope'.setup{
     },
   }
 }
-require'nvim-web-devicons'.get_icon(filename, extension, options)
 EOF
 "}}}
 
@@ -143,41 +160,9 @@ nnoremap <silent> g[ :GitGutterPrevHunk<CR>
 "}}}
 
 
-" defx ------------ {{{
-nnoremap <silent><C-f> :<C-u>Defx<CR>
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-   \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> c
-  \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m
-  \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-  \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l
-  \ defx#do_action('drop')
-  nnoremap <silent><buffer><expr> K
-  \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N
-  \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r
-  \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> yy
-  \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .
-  \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> h
-  \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> q
-  \ defx#do_action('quit')
-endfunction
-"}}}
-
-
 " Basic setting --- {{{
+language en_US
+set termguicolors
 set number
 set cursorline
 set nobackup
@@ -216,7 +201,7 @@ augroup END
 
 
 " Color scheme ---- {{{
-colorscheme PaperColor
-hi Normal ctermbg=None
+colorscheme papercolor
+hi Normal ctermbg=None guibg=None
 "}}}
 
