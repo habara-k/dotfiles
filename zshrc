@@ -22,10 +22,15 @@ zinit light-mode for \
 ### End of Zinit's installer chunk
 
 
+bindkey -v
+
+
 zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light chrissicool/zsh-256color
+
+zinit light zsh-users/zsh-autosuggestions
+bindkey '^\' autosuggest-accept
 
 zinit light zsh-users/zsh-history-substring-search
 bindkey '^p' history-substring-search-up
