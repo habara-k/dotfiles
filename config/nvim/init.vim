@@ -51,8 +51,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-lua/lsp_extensions.nvim'
 
   " session
-  Plug 'tpope/vim-obsession'
-  Plug 'dhruvasagar/vim-prosession'
+  Plug 'rmagatti/auto-session'
+  Plug 'rmagatti/session-lens'
 call plug#end()
 
 
@@ -213,6 +213,9 @@ augroup END
 
 " Color scheme ---- {{{
 colorscheme papercolor
-hi Normal ctermbg=None guibg=None
+
+" for tmux active/inactive window highlighting
+" tempolary turned off due to session-lens
+"hi Normal ctermbg=None guibg=None
 "}}}
 
