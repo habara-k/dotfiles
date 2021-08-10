@@ -218,7 +218,7 @@ set foldmethod=marker
 set virtualedit=onemore
 set scrolloff=3
 set backspace=indent,eol,start
-set list listchars=tab:»-,trail:･,nbsp:⍽,extends:»,precedes:«
+set list listchars=tab:»-,trail:･
 
 nnoremap j gj
 nnoremap k gk
