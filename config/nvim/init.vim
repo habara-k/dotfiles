@@ -56,6 +56,15 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 
+" session --------- {{{
+lua <<EOF
+require('auto-session').setup{
+  log_level = 'error',
+}
+EOF
+"}}}
+
+
 " git ------------- {{{
 set updatetime=100
 nnoremap <silent> g] :GitGutterNextHunk<CR>
