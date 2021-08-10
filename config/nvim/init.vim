@@ -57,6 +57,7 @@ call plug#end()
 
 
 " git ------------- {{{
+set updatetime=100
 nnoremap <silent> g] :GitGutterNextHunk<CR>
 nnoremap <silent> g[ :GitGutterPrevHunk<CR>
 nnoremap <silent> gs :Git<CR>
