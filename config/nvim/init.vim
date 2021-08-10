@@ -59,11 +59,12 @@ call plug#end()
 " git ------------- {{{
 nnoremap <silent> g] :GitGutterNextHunk<CR>
 nnoremap <silent> g[ :GitGutterPrevHunk<CR>
-nnoremap <silent> gs :Gstatus<CR>
-nnoremap <silent> gd :Gdiff<CR>
-nnoremap <silent> gb :Gblame<CR>
-nnoremap <silent> gc :Git commit<CR>
+nnoremap <silent> gs :Git<CR>
 nnoremap <silent> ga :Gwrite<CR>
+nnoremap <silent> gc :Git commit<CR>
+nnoremap <silent> gp :Git push<CR>
+nnoremap <silent> gd :Gdiff<CR>
+nnoremap <silent> gb :Git blame<CR>
 "}}}
 
 
