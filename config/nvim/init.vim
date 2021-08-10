@@ -50,7 +50,7 @@ call plug#begin('~/.vim/plugged')
 
   " session
   Plug 'rmagatti/auto-session'
-  Plug 'rmagatti/session-lens'
+  "Plug 'rmagatti/session-lens'
 
   " auto pairs/tags
   Plug 'windwp/nvim-autopairs'
@@ -248,9 +248,6 @@ augroup END
 
 " Color scheme ---- {{{
 colorscheme papercolor
-
-" for tmux active/inactive window highlighting
-" tempolary turned off due to session-lens
-"hi Normal ctermbg=None guibg=None
+hi Normal ctermbg=None guibg=None
 "}}}
 
