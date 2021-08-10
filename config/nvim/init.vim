@@ -60,10 +60,16 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 
-" auto pairs/tags - {{{
+" autotags ------- {{{
+lua <<EOF
+require'nvim-ts-autotag'.setup{}
+EOF
+"}}}
+
+
+" autopairs ------ {{{
 lua <<EOF
 require'nvim-autopairs'.setup{}
-require'nvim-ts-autotag'.setup{}
 
 local remove_rules = {vim = '"', rust = "'"}
 for lang, char in pairs(remove_rules) do
@@ -71,6 +77,9 @@ for lang, char in pairs(remove_rules) do
     :with_pair(function() return vim.bo.filetype ~= lang end)
 end
 EOF
+
+" remove right bracket when removing left bracket by C-H
+imap <C-h> <BS>
 "}}}
 
 
