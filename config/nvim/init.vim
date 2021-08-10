@@ -32,8 +32,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
 
-  Plug 'zsh-users/zsh-history-substring-search'
-
   " syntax
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -54,7 +52,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'rmagatti/auto-session'
   Plug 'rmagatti/session-lens'
 
-  " autopairs
+  " auto pairs/tags
   Plug 'windwp/nvim-autopairs'
   Plug 'windwp/nvim-ts-autotag'
 call plug#end()
@@ -69,11 +67,12 @@ EOF
 
 " autopairs ------ {{{
 lua <<EOF
-require'nvim-autopairs'.setup{}
+local npairs = require'nvim-autopairs'
 
+npairs.setup{}
 local remove_rules = {vim = '"', rust = "'"}
 for lang, char in pairs(remove_rules) do
-  require'nvim-autopairs'.get_rule(char)
+  npairs.get_rule(char)
     :with_pair(function() return vim.bo.filetype ~= lang end)
 end
 EOF
@@ -112,6 +111,7 @@ nnoremap <silent> <C-f> :NvimTreeToggle<CR>
 
 " lspconfig ------- {{{
 lua <<EOF
+local nvim_lsp = require('lspconfig')
 local on_attach = function (client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local opts = { noremap=true, silent=true }
@@ -120,12 +120,12 @@ local on_attach = function (client, bufnr)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-  require'completion'.on_attach(client, bufnr)
+  require'completion'.on_attach(client)
 end
 
 local servers = {'clangd', 'pyright', 'rust_analyzer'}
 for _, lsp in ipairs(servers) do
-  require'lspconfig'[lsp].setup{on_attach=on_attach}
+  nvim_lsp[lsp].setup{on_attach=on_attach}
 end
 EOF
 
