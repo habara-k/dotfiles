@@ -30,6 +30,9 @@ call plug#begin('~/.vim/plugged')
 
   " git
   Plug 'airblade/vim-gitgutter'
+  Plug 'tpope/vim-fugitive'
+
+  Plug 'zsh-users/zsh-history-substring-search'
 
   " syntax
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -50,8 +53,18 @@ call plug#begin('~/.vim/plugged')
   " session
   Plug 'tpope/vim-obsession'
   Plug 'dhruvasagar/vim-prosession'
-
 call plug#end()
+
+
+" git ------------- {{{
+nnoremap <silent> g] :GitGutterNextHunk<CR>
+nnoremap <silent> g[ :GitGutterPrevHunk<CR>
+nnoremap <silent> gs :Gstatus<CR>
+nnoremap <silent> gd :Gdiff<CR>
+nnoremap <silent> gb :Gblame<CR>
+nnoremap <silent> gc :Git commit<CR>
+nnoremap <silent> ga :Gwrite<CR>
+"}}}
 
 
 " file exploler --- {{{
@@ -126,8 +139,9 @@ EOF
 " telescope ------- {{{
 nnoremap <silent> ,f <cmd>Telescope find_files<cr>
 nnoremap <silent> ,g <cmd>Telescope git_files<cr>
-nnoremap <silent> ,r <cmd>Telescope live_grep<cr>
+nnoremap <silent> ,a <cmd>Telescope live_grep<cr>
 nnoremap <silent> ,b <cmd>Telescope buffers<cr>
+nnoremap <silent> ,r <cmd>Telescope command_history<cr>
 lua <<EOF
 require'telescope'.setup{
   defaults = {
@@ -151,12 +165,6 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = 'maintained'
 }
 EOF
-"}}}
-
-
-" gitgutter ------- {{{
-nnoremap <silent> g] :GitGutterNextHunk<CR>
-nnoremap <silent> g[ :GitGutterPrevHunk<CR>
 "}}}
 
 
