@@ -54,6 +54,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'rmagatti/auto-session'
   Plug 'rmagatti/session-lens'
 
+  " autopairs
   Plug 'windwp/nvim-autopairs'
   Plug 'windwp/nvim-ts-autotag'
 call plug#end()
@@ -63,6 +64,19 @@ call plug#end()
 lua <<EOF
 require'nvim-autopairs'.setup{}
 require'nvim-ts-autotag'.setup{}
+
+require'nvim-autopairs'.get_rule('"')
+  :with_pair(function()
+    if vim.bo.filetype == 'vim' then
+      return false
+    end
+  end)
+require'nvim-autopairs'.get_rule("'")
+  :with_pair(function()
+    if vim.bo.filetype == 'rust' then
+      return false
+    end
+  end)
 EOF
 "}}}
 
