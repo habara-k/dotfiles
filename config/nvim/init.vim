@@ -65,18 +65,11 @@ lua <<EOF
 require'nvim-autopairs'.setup{}
 require'nvim-ts-autotag'.setup{}
 
-require'nvim-autopairs'.get_rule('"')
-  :with_pair(function()
-    if vim.bo.filetype == 'vim' then
-      return false
-    end
-  end)
-require'nvim-autopairs'.get_rule("'")
-  :with_pair(function()
-    if vim.bo.filetype == 'rust' then
-      return false
-    end
-  end)
+local remove_rules = {vim = '"', rust = "'"}
+for lang, char in pairs(remove_rules) do
+  require'nvim-autopairs'.get_rule(char)
+    :with_pair(function() return vim.bo.filetype ~= lang end)
+end
 EOF
 "}}}
 
@@ -121,9 +114,10 @@ local on_attach = function (client, bufnr)
   require'completion'.on_attach(client, bufnr)
 end
 
-require'lspconfig'.clangd.setup{on_attach=on_attach}
-require'lspconfig'.pyright.setup{on_attach=on_attach}
-require'lspconfig'.rust_analyzer.setup{on_attach=on_attach}
+local servers = {'clangd', 'pyright', 'rust_analyzer'}
+for _, lsp in ipairs(servers) do
+  require'lspconfig'[lsp].setup{on_attach=on_attach}
+end
 EOF
 
 autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter,CursorHold,CursorMoved *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"}}
