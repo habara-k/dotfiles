@@ -187,8 +187,10 @@ set list listchars=tab:»-,trail:･,nbsp:⍽,extends:»,precedes:«
 
 nnoremap j gj
 nnoremap k gk
-nnoremap <C-n> :<C-u>bnext<CR>
-nnoremap <C-p> :<C-u>bprev<CR>
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprev<CR>
+nnoremap <C-q> :quit<CR>
+nnoremap <C-b> :bw<CR>
 "}}}
 
 
