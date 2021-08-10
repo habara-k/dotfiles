@@ -40,7 +40,7 @@ zinit cdclear -q
 # prompt
 setopt promptsubst
 zinit snippet OMZT::gnzh
-zinit light agnoster/agnoster-zsh-theme
+zinit light sindresorhus/pure
 
 
 # anyframe
