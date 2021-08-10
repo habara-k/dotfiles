@@ -53,7 +53,18 @@ call plug#begin('~/.vim/plugged')
   " session
   Plug 'rmagatti/auto-session'
   Plug 'rmagatti/session-lens'
+
+  Plug 'windwp/nvim-autopairs'
+  Plug 'windwp/nvim-ts-autotag'
 call plug#end()
+
+
+" auto pairs/tags - {{{
+lua <<EOF
+require'nvim-autopairs'.setup{}
+require'nvim-ts-autotag'.setup{}
+EOF
+"}}}
 
 
 " session --------- {{{
@@ -170,9 +181,6 @@ EOF
 " treesitter ------ {{{
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-  },
   ensure_installed = 'maintained'
 }
 EOF
