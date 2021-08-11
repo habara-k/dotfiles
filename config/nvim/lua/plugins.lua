@@ -32,6 +32,7 @@ require'packer'.startup(function()
       require('auto-session').setup{
         log_level = 'error',
       }
+      vim.api.nvim_set_var('auto_session_pre_save_cmds', { ':NvimTreeClose' })
     end,
   }
 
