@@ -168,7 +168,8 @@ require'packer'.startup(function()
       end
     end,
   }
-  use {'nvim-lua/completion-nvim',
+  use {
+    'nvim-lua/completion-nvim',
     config = function()
       local function t(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -182,7 +183,8 @@ require'packer'.startup(function()
       vim.o.shortmess = vim.o.shortmess .. 'c'
     end,
   }
-  use {'nvim-lua/lsp_extensions.nvim',
+  use {
+    'nvim-lua/lsp_extensions.nvim',
     config = function()
       vim.cmd'autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter,CursorHold,CursorMoved *.rs :lua require"lsp_extensions".inlay_hints{ prefix = "", highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"}}'
     end,
