@@ -56,7 +56,7 @@ bindkey '^u' anyframe-widget-cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 
-bindkey '^r' anyframe-widget-execute-history
+bindkey '^r' anyframe-widget-put-history
 bindkey '^b' anyframe-widget-checkout-git-branch
 bindkey '^g' anyframe-widget-cd-ghq-repository
 bindkey '^k' anyframe-widget-insert-filename
