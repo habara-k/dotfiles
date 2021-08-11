@@ -79,3 +79,7 @@ setopt share_history
 
 setopt AUTO_CD
 
+
+# asdf
+. /usr/local/opt/asdf/libexec/asdf.sh
+

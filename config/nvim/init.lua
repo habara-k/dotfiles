@@ -2,7 +2,6 @@ require'plugins'
 
 
 -- basic -------------{{{
-vim.cmd'language en_US'
 vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.cursorline = true
@@ -13,6 +12,8 @@ vim.opt.virtualedit = 'onemore'
 vim.opt.scrolloff = 3
 vim.opt.backspace = {'indent', 'eol', 'start'}
 vim.opt.list = true
+vim.api.nvim_set_var('python_host_prog', '~/.asdf/shims/python')
+vim.api.nvim_set_var('python3_host_prog', '~/.asdf/shims/python3')
 --}}}
 
 
