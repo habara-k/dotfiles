@@ -26,7 +26,6 @@ require'packer'.startup(function()
     end,
   }
 
-  -- TODO: replace with thaerkh/vim-workspace
   use {
     'rmagatti/auto-session',
     config = function()
