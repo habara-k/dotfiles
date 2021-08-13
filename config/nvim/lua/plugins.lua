@@ -195,5 +195,12 @@ require'packer'.startup(function()
       vim.cmd'autocmd BufEnter,BufWinEnter,BufWritePost,InsertLeave,TabEnter,CursorHold,CursorMoved *.rs :lua require"lsp_extensions".inlay_hints{ prefix = "", highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"}}'
     end,
   }
+
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require'colorizer'.setup()
+    end,
+  }
 end)
 
