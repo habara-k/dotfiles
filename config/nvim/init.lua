@@ -11,7 +11,7 @@ vim.opt.hidden = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.foldmethod = 'marker'
 vim.opt.virtualedit = 'onemore'
-vim.opt.scrolloff = 3
+vim.opt.scrolloff = 5
 vim.opt.backspace = {'indent', 'eol', 'start'}
 vim.opt.list = true
 vim.api.nvim_set_var('python_host_prog', '~/.asdf/shims/python')
