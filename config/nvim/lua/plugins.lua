@@ -85,13 +85,13 @@ require'packer'.startup(function()
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = function()
-      vim.api.nvim_set_keymap('n', ',f', ':Telescope find_files<CR>', {noremap = true})
-      vim.api.nvim_set_keymap('n', ',g', ':Telescope git_files<CR>', {noremap = true})
-      vim.api.nvim_set_keymap('n', ',a', ':Telescope live_grep<CR>', {noremap = true})
-      vim.api.nvim_set_keymap('n', ',b', ':Telescope buffers<CR>', {noremap = true})
-      vim.api.nvim_set_keymap('n', ',r', ':Telescope command_history<CR>', {noremap = true})
+      vim.api.nvim_set_keymap('n', ',f', [[<Cmd>lua require'telescope.builtin'.find_files({hidden = true})<CR>]], {noremap = true})
+      vim.api.nvim_set_keymap('n', ',g', [[<Cmd>lua require'telescope.builtin'.git_files({hidden = true})<CR>]], {noremap = true})
+      vim.api.nvim_set_keymap('n', ',a', [[<Cmd>lua require'telescope.builtin'.live_grep({hidden = true})<CR>]], {noremap = true})
+      vim.api.nvim_set_keymap('n', ',b', [[<Cmd>lua require'telescope.builtin'.buffers({hidden = true})<CR>]], {noremap = true})
       require'telescope'.setup{
         defaults = {
+          file_ignore_patterns = {'.git/*'},
           mappings = {
             n = {
               ["q"] = require'telescope.actions'.close
