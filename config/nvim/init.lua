@@ -1,5 +1,7 @@
 require'plugins'
 
+vim.cmd[[autocmd BufWritePost plugins.lua PackerCompile]]
+
 
 -- basic -------------{{{
 vim.opt.termguicolors = true
