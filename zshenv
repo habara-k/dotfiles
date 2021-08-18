@@ -9,3 +9,6 @@ export PATH="/usr/local/opt/llvm/bin:$PATH"
 # For Rust
 source "$HOME/.cargo/env"
 
+# For Go
+export PATH="$PATH:$HOME/go/bin"
+
